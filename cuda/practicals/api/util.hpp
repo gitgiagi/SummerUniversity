@@ -181,15 +181,6 @@ T* malloc_host(size_t N, T value=T()) {
     return ptr;
 }
 
-template <typename T> // In C++ funzione template: funzione generica che può operare su diversi tipi di dati 
-T* malloc_device(size_t n) {
-    void* p;
-    auto status = cudaMalloc(&p, n*sizeof(T));
-    cuda_check_status(status);
-    return (T*)p;
-}
-
-
 // aliases for types used in timing host code
 using clock_type    = std::chrono::high_resolution_clock;
 using duration_type = std::chrono::duration<double>;
