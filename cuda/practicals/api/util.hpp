@@ -24,10 +24,11 @@ static cublasHandle_t get_cublas_handle() {
 ///////////////////////////////////////////////////////////////////////////////
 // CUDA error checking
 ///////////////////////////////////////////////////////////////////////////////
-static void cuda_check_status(cudaError_t status) {
+static void cuda_check_status(cudaError_t status) { //static: Funzione visibile solo all'ìnterno del file in cui è dichiarata
     if(status != cudaSuccess) {
-        std::cerr << "error: CUDA API call : "
-                  << cudaGetErrorString(status) << std::endl;
+        std::cerr << "error: CUDA API call : " //std: standard: namespace in C++ //cerr: character (/console) error (stream)
+                  << cudaGetErrorString(status) << std::endl; //endl: end line: va a capo e svuota il buffer
+        // buffer: area di memoria temporanea usata per immagazzinare dati in attesa di essere inviati a un dispositivo di output
         exit(1);
     }
 }
