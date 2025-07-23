@@ -92,7 +92,7 @@ T* malloc_pinned(size_t N, T value=T()) {
 template <typename T>
 void copy_to_device(T* from, T* to, size_t n) {
     // TODO
-    auto status = cudaMemcpy(to, from, n, cudaMemcpyHostToDevice);
+    auto status = cudaMemcpy(to, from, n*sizeof(T), cudaMemcpyHostToDevice);
     cuda_check_status(status);
 }
 
@@ -100,7 +100,7 @@ void copy_to_device(T* from, T* to, size_t n) {
 template <typename T>
 void copy_to_host(T* from, T* to, size_t n) {
     // TODO
-    auto status=cudaMemcpy(to, from, n, cudaMemcpyDeviceToHost);
+    auto status=cudaMemcpy(to, from, n*sizeof(T), cudaMemcpyDeviceToHost);
     cuda_check_status(status);
 }
 
