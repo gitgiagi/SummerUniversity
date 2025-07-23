@@ -54,7 +54,7 @@ static void cuda_check_last_kernel(std::string const& errstr) {
 ///////////////////////////////////////////////////////////////////////////////
 
 // allocate space on GPU for n instances of type T
-template <typename T>
+template <typename T> // In C++ funzione template: funzione generica che può operare su diversi tipi di dati 
 T* malloc_device(size_t n) {
     void* p;
     auto status = cudaMalloc(&p, n*sizeof(T));
@@ -172,13 +172,23 @@ static size_t read_arg(int argc, char** argv, size_t index, int default_value) {
     return default_value;
 }
 
+// allocate space on CPU for N instances of type T
 template <typename T>
 T* malloc_host(size_t N, T value=T()) {
     T* ptr = (T*)(malloc(N*sizeof(T)));
-    std::fill(ptr, ptr+N, value);
-
+    std::fill(ptr, ptr+N, value); //fill: riempie l'intervallo [ptr, ptr+N] (primo incluso, ultimo escluso) con il valore value
+    //ptr+N: sposta il puntatore avanti di "N" elementi, tenendo conto della dimensione del tipo a cui punta
     return ptr;
 }
+
+template <typename T> // In C++ funzione template: funzione generica che può operare su diversi tipi di dati 
+T* malloc_device(size_t n) {
+    void* p;
+    auto status = cudaMalloc(&p, n*sizeof(T));
+    cuda_check_status(status);
+    return (T*)p;
+}
+
 
 // aliases for types used in timing host code
 using clock_type    = std::chrono::high_resolution_clock;
