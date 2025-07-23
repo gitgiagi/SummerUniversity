@@ -27,6 +27,7 @@ static cublasHandle_t get_cublas_handle() {
 static void cuda_check_status(cudaError_t status) { //static: Funzione visibile solo all'ìnterno del file in cui è dichiarata
     if(status != cudaSuccess) {
         std::cerr << "error: CUDA API call : " //std: standard: namespace in C++ //cerr: character (/console) error (stream)
+            //:: operatore di risoluzione dello scope in C++: specifica il contesto (namespace) al quale appartiene un identificatore
                   << cudaGetErrorString(status) << std::endl; //endl: end line: va a capo e svuota il buffer
         // buffer: area di memoria temporanea usata per immagazzinare dati in attesa di essere inviati a un dispositivo di output
         exit(1);
