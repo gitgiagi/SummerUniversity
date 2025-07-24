@@ -7,7 +7,7 @@
 // TODO : implement a kernel that reverses a string of length n in place
 __global__
  void reverse_string(char* str, int n) {
-    auto i = threadIdx.x + blockIdx.x*blockDim.x;
+    auto i = threadIdx.x;
     auto j = n-1-i;
 
     if (i<j) {
