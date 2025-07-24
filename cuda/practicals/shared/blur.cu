@@ -2,9 +2,9 @@
 
 #include <cuda.h>
 
-#include "util.hpp"
-#include "cuda_stream.hpp"
-#include "cuda_event.hpp"
+#include "../include/util.hpp"
+#include "../include/cuda_stream.hpp"
+#include "../include/cuda_event.hpp"
 
 template <int Threads>
 __global__
