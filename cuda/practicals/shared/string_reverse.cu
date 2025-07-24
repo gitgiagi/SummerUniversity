@@ -2,10 +2,20 @@
 #include <cstdio>
 #include <iostream>
 
-#include "util.hpp"
+#include "../include/util.hpp"
 
 // TODO : implement a kernel that reverses a string of length n in place
-// void reverse_string(char* str, int n)
+__global__
+ void reverse_string(char* str, int n) {
+    auto i = threadIdx.x + blockIdx.x*blockDim.x;
+    auto j = n-1-i;
+
+    if (i<j) {
+        char tmp=str[i];
+        str[i]=str[j];
+        str[j]=tmp;
+    }
+ }
 
 int main(int argc, char** argv) {
     // check that the user has passed a string to reverse
@@ -23,6 +33,8 @@ int main(int argc, char** argv) {
     std::cout << "string to reverse:\n" << string << "\n";
 
     // TODO : call the string reverse function
+    int num_threads = (n+1)/2;
+    reverse_string<<<1,num_threads>>> (string,n);
 
     // print reversed string
     cudaDeviceSynchronize();
@@ -33,4 +45,5 @@ int main(int argc, char** argv) {
 
     return 0;
 }
+
 
